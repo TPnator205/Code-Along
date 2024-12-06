@@ -11,6 +11,24 @@ def get_input():
     action = input("'create' or 'check' password: ")
     return action
 
+def is_upcase_letter(char):
+    if char in capital_letters:
+        return True
+    else:
+        return False
+
+def is_lowcase_letter(char):
+    if char in lowercase_letters:
+        return True
+    else:
+        return False
+
+def is_allowed_spec_char(char):
+    if char in special_char:
+        return True
+    else:
+        return False
+
 def password_check(password: str):
     criteria = [False, False, False, False, False] #[length >= 8, special char, number, lowcase, upcase letter]
 
@@ -21,13 +39,13 @@ def password_check(password: str):
         if all(criteria) == True:
             break
 
-        if password[i] in special_char:
+        if is_allowed_spec_char(password[i]):
             criteria[1] = True
-        elif password[i] in numbers:
+        elif password[i].isdigit():
             criteria[2] = True
-        elif password[i] in lowercase_letters:
+        elif is_lowcase_letter(password[i]):
             criteria[3] = True
-        elif password[i] in capital_letters:
+        elif is_upcase_letter(password[i]):
             criteria[4] = True
         else:
             print("Invalid character: Only letters(uppercase and lowercase), digits(0-9), and special characters(!@#$%^&*-_+=<>.?) are allowed")
